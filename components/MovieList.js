@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import axios from 'axios';
+import {kEY, URL} from "@env"
 
-const BASE_URL = 'https://api.themoviedb.org/3';
-const API_KEY = '351b3781b8856f9a587b8aaa732ab54d';
+
+const BASE_URL = URL
+const API_KEY = kEY
 
 const MovieList = ({route}) => {
   const { endpoint } = route.params;
@@ -53,7 +55,8 @@ const MovieList = ({route}) => {
                   style={styles.movieImage}
                   source={{ uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
                 />
-                <Text style={styles.movieTitle}>{movie.title}</Text>
+                <Text numberOfLines={1} ellipsizeMode='tail'style={styles.movieTitle}>{movie.title}</Text>
+                <Text style={styles.movierating}>{movie.vote_average}</Text>
               </View>
             ))}
           </View>
@@ -92,6 +95,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'gray'
+  },
+  movierating:{
+    position: 'absolute',
+    textAlign: 'center',
+    color:'#C69749',
+    backgroundColor:'black',
+    borderBottomRightRadius:20,
+    paddingRight:7,
+    fontSize: 10,
+
   }
 });
 
