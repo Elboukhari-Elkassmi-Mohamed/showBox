@@ -4,17 +4,20 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import MovieList from '../components/MovieList';
 
 
+
 const Tab = createMaterialTopTabNavigator();
 
-export default function App() {
+export default function MoviesScreens() {
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
       <Tab.Navigator
        screenOptions={{
-    tabBarIndicatorStyle: {backgroundColor: '#735F32' },
-    tabBarLabelStyle: { fontSize: 11, color:'#C69749'},
-    tabBarItemStyle: { width: 100 },
-    tabBarStyle: { backgroundColor: '#282A3A' },
+        tabBarActiveTintColor: 'gray',
+        tabBarInactiveTintColor: '#C69749',
+        tabBarIndicatorStyle: {backgroundColor: 'gray' },
+        tabBarLabelStyle: { fontSize: 10},
+        tabBarItemStyle: { width: 100 },
+        tabBarStyle: { backgroundColor: '#282A3A' },
   }}>
         <Tab.Screen name="Popular" component={MovieList} initialParams={{ endpoint: 'popular' }} />
         <Tab.Screen name="n_playing" component={MovieList} initialParams={{ endpoint: 'now_playing' }} />

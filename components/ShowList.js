@@ -7,22 +7,22 @@ import {kEY, URL} from "@env"
 const BASE_URL = URL
 const API_KEY = kEY
 
-const MovieList = ({route}) => {
+const SerieList = ({route}) => {
   const { endpoint } = route.params;
-  const [movies, setMovies] = useState([]);
+  const [series, setSeries] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchMovies();
+    fetchSeries();
   }, []);
 
-  const fetchMovies = () => {
+  const fetchSeries = () => {
     setLoading(true);
-    axios.get(`${BASE_URL}/movie/${endpoint}?api_key=${API_KEY}&language=en-US&page=${page}`)
+    axios.get(`${BASE_URL}/tv/${endpoint}?api_key=${API_KEY}&language=en-US&page=${page}`)
       .then(response => {
-        const newMovies = response.data.results;
-        setMovies([...movies, ...newMovies]);
+        const newSeries = response.data.results;
+        setSeries([...series, ...newSeries]);
         setPage(page + 1);
         setLoading(false);
       })
@@ -53,12 +53,12 @@ const MovieList = ({route}) => {
 
   const handleLoadMore = () => {
     if (loading) return;
-    fetchMovies();
+    fetchSeries();
   };
 
   return (
     <FlatList
-      data={movies}
+      data={series}
       renderItem={renderItem}
       keyExtractor={item => item.id.toString()}
       numColumns={3}
@@ -115,4 +115,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MovieList;
+export default SerieList;
