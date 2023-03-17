@@ -8,6 +8,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import SplashScreen from 'react-native-splash-screen';
+import { store } from './app/store';
+import { Provider } from 'react-redux';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,11 +19,17 @@ function App() {
     SplashScreen.hide();
   }),[];
 
- 
+
   return (
-   
+
+
       <NavigationContainer>
-        <Drawer.Navigator useLegacyImplementation
+            <Provider store={store}>
+        <Drawer.Navigator 
+        gestureEnabled={true}
+        edgeWidth={50}
+        minSwipeDistance={50}      
+     // useLegacyImplementation
           screenOptions={{
             drawerStyle: {
               backgroundColor: '#282A3A',
@@ -71,8 +79,12 @@ function App() {
           }} />
 
         </Drawer.Navigator>
+        </Provider>
+
       </NavigationContainer>
-   
+     
+       
+
   );
 }
 

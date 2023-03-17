@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, FlatList ,ActivityIndicator} from 'react-native';
+import { View, Text, StyleSheet, FlatList ,ActivityIndicator, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import {kEY, URL} from "@env"
+import FastImage from 'react-native-fast-image';
+
 
 
 const BASE_URL = URL
 const API_KEY = kEY
 
-const MovieList = ({route}) => {
+const MovieList = ({route, navigation}) => {
   const { endpoint } = route.params;
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
@@ -32,15 +34,21 @@ const MovieList = ({route}) => {
   };
 
   const renderItem = ({ item }) => (
+
     <View style={styles.movieContainer} key={item.id}>
-      <Image
+         <TouchableOpacity onPress={() => navigation.navigate('MovieDetails', { itemId: item.id })}>
+    <FastImage
         style={styles.movieImage}
-        source={{ uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}` }}
+        source={{ uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}`}}
       />
       <Text numberOfLines={1} ellipsizeMode='tail' style={styles.movieTitle}>{item.title}</Text>
       <Text style={styles.movieRating}>{item.vote_average}</Text>
+      </TouchableOpacity>
+
     </View>
+
   );
+
 
   const renderFooter = () => {
     if (!loading) return null;
